@@ -1,18 +1,46 @@
 import styles from "../body/body.module.css";
+import React, { useState } from "react";
 
 function Body() {
+  let name;
+  let email;
+  let text;
+  let shouldRenderDiv=false;
 
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Text, setText] = useState("");
 
-  const onViaCall=() =>{
+  const onViaCall = () => {
     console.log("Iam on call");
-  }
+  };
 
-  const onViaChat=() =>{
+  const onViaChat = () => {
     console.log("Iam on chat");
-  }
+  };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(event);
 
+    name = event.target[0].value;
+    email = event.target[1].value;
+    text = event.target[2].value;
 
+    setName(event.target[0].value);
+    setEmail(event.target[1].value);
+    setText(event.target[2].value);
+
+    console.log(name);
+    console.log(email);
+    console.log(text);
+
+    if (name && text && email) {
+      console.log(name,text,email)
+       shouldRenderDiv = true;
+       console.log(shouldRenderDiv);
+    }
+  };
 
   return (
     <div className={styles.bodyContainer}>
@@ -35,25 +63,40 @@ function Body() {
           <div className={styles.EmailButton}>
             <button>VIA EMAIL FORM</button>
           </div>
-          <div className={styles.InputValueForm}>
-            <label>Name</label>
-            <input type="text" />
 
-            <label>Email</label>
-            <input type="email" />
+          <form onSubmit={onSubmit}>
+            <div className={styles.InputValueForm}>
+              <label>Name</label>
+              <input type="text" />
 
-            <label>Text</label>
-            <input className={styles.text} type="text" />
-          </div>
+              <label>Email</label>
+              <input type="email" />
+
+              <label>Text</label>
+              <input className={styles.text} type="text" />
+
+              <button>SUBMIT</button>
+            </div>
+          </form>
         </div>
 
         <div className={styles.FormImage}>
           <img src="assets/photo.svg" alt="Image" />
         </div>
-
-        
       </div>
-      <button>SUBMIT</button>
+
+       
+        <div>
+          <label>Name:</label>
+          {Name}
+          <br />
+          <label>Email:</label>
+          {Email}
+          <br />
+          <label>Text:</label>
+          {Text}
+        </div>
+      
     </div>
   );
 }
